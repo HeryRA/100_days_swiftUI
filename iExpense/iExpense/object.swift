@@ -47,11 +47,11 @@ class Expenses {
         personalItems = []
     }
     
-    func removeBusinessItem(at offset: IndexSet){
-        businessItems.remove(atOffsets: offset)
+    func removeBusinessItem(at offsets: IndexSet){
+        businessItems.remove(atOffsets: offsets)
     }
     
-    func removePersonalItem(at offset: IndexSet){
-        personalItems.remove(atOffsets: offset)
+    func removePersonalItem(at offsets: IndexSet){
+        personalItems.remove(atOffsets: offsets)
     }
 }
