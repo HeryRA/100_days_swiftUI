@@ -37,14 +37,16 @@ class Expenses {
         if let businessData = UserDefaults.standard.data(forKey: "businessItems"),
            let businessDecoded = try? JSONDecoder().decode([ExpenseItem].self, from: businessData) {
             businessItems = businessDecoded
+        }else {
+            businessItems = []
         }
+        
         if let personnalData = UserDefaults.standard.data(forKey: "personalItems"),
            let personnalDecoded = try? JSONDecoder().decode([ExpenseItem].self, from: personnalData) {
             personalItems = personnalDecoded
-            return
+        }else {
+            personalItems = []
         }
-        businessItems = []
-        personalItems = []
     }
     
     func removeBusinessItem(at offsets: IndexSet){
