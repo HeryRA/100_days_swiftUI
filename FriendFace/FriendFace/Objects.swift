@@ -6,48 +6,90 @@
 //
 
 import Foundation
+import SwiftData
 
-struct User: Hashable, Identifiable, Codable {
-    struct Friend: Hashable, Identifiable, Codable {
-        let id: String
-        let name: String
+@Model
+class Friend: Hashable, Identifiable, Codable {
+    enum codingKeys: String, CodingKey {
+        case id
+        case name
     }
+    
+    var id: String
+    var name: String
+    
+    required init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: codingKeys.self)
+        id = try container.decode(String.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+    }
+    
+    func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: codingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+    }
+}
 
-    let id: String
-    let isActive: Bool
-    let name: String
-    let age: Int
-    let company: String
-    let email: String
-    let address: String
-    let about: String
-    let registered: Date
-    let tags: [String]
-    let friends: [Friend]
+@Model
+class User: Hashable, Identifiable, Codable {
+    enum codingKeys: String, CodingKey {
+        case id
+        case isActive
+        case name
+        case age
+        case company
+        case email
+        case address
+        case about
+        case registered
+        case tags
+        case friends
+    }
+    
+    var id: String
+    var isActive: Bool
+    var name: String
+    var age: Int
+    var company: String
+    var email: String
+    var address: String
+    var about: String
+    var registered: Date
+    var tags: [String]
+    var friends: [Friend]
     
     var formattedRegistered: String {
         registered.formatted(date: .complete, time: .omitted)
     }
     
-    static let exampleUser: User = .init(
-        id: "5e5e",
-        isActive: true,
-        name: "Buckner Mccray",
-        age: 18,
-        company: "SOLARENERGY",
-        email: "bucknermccray@solarenergy.com",
-        address: "115555555555555555555",
-        about: """
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-            since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five
-            centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
-            Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of
-            Lorem Ipsum.
-            """,
-        registered: Date.now,
-        tags: ["tag1", "tag2"],
-        friends: [
-            .init(id: "1", name: "Friend 1"), .init(id: "2", name: "Friend 2"),
-        ]
-    )
+    required init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: codingKeys.self)
+        id = try container.decode(String.self, forKey: .id)
+        isActive = try container.decode(Bool.self, forKey: .isActive)
+        name = try container.decode(String.self, forKey: .name)
+        age = try container.decode(Int.self, forKey: .age)
+        company = try container.decode(String.self, forKey: .company)
+        email = try container.decode(String.self, forKey: .email)
+        address = try container.decode(String.self, forKey: .address)
+        about = try container.decode(String.self, forKey: .about)
+        registered = try container.decode(Date.self, forKey: .registered)
+        tags = try container.decode([String].self, forKey: .tags)
+        friends = try container.decode([Friend].self, forKey: .friends)
+    }
+    
+    func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: codingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(isActive, forKey: .isActive)
+        try container.encode(name, forKey: .name)
+        try container.encode(age, forKey: .age)
+        try container.encode(company, forKey: .company)
+        try container.encode(email, forKey: .email)
+        try container.encode(address, forKey: .address)
+        try container.encode(about, forKey: .about)
+        try container.encode(registered, forKey: .registered)
+        try container.encode(tags, forKey: .tags)
+        try container.encode(friends, forKey: .friends)
+    }
 }

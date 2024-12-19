@@ -21,10 +21,10 @@ struct DetailView: View {
                     }
                     .padding(.vertical, 5)
                         
-                    Text("From: \(user.company)")
-                    Text("Email: \(user.email)")
-                    Text("Address: \(user.address)")
-                    Text("Join date: \(user.formattedRegistered)")
+                    Text(". From: \(user.company)")
+                    Text(". Email: \(user.email)")
+                    Text(". Address: \(user.address)")
+                    Text(". Join date: \(user.formattedRegistered)")
                 }
             }
             
@@ -50,6 +50,6 @@ struct DetailView: View {
     }
 }
 
-#Preview {
-    DetailView(user: User.exampleUser)
-}
+//#Preview {
+//    DetailView(user: User.exampleUser)
+//}
